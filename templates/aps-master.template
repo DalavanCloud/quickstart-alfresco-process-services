@@ -10,77 +10,81 @@ Metadata:
   AWS::CloudFormation::Interface:
     ParameterGroups:
     - Label:
-        default: VPC Stack Configuration
+        default: Network Configuration
       Parameters:
       - AvailabilityZones
-      - KeyPairName
+      - VPCCIDR
       - PrivateSubnet1CIDR
       - PrivateSubnet2CIDR
       - PublicSubnet1CIDR
       - PublicSubnet2CIDR
-      - VPCCIDR
-    - Label:
-        default: Bastion Stack Configuration
-      Parameters:
       - RemoteAccessCIDR
     - Label:
-        default: APS Stack Configuration
+        default: Amazon EC2 Configuration
+      Parameters:
+      - APSInstanceType
+      - KeyPairName
+    - Label:
+        default: Alfresco Process Services Configuration
       Parameters:
       - ActivitiLicense
-      - APSInstanceType
       - AsposeLicense
-      - DBEngine
-      - DBUsername
-      - DBUserPassword
       - OperatorEmail
-      - RDSInstanceType
-    - Label:
-        default: User details
-      Parameters:
       - UserEmailAddress
       - UserPassword
     - Label:
-        default: Quickstart Parameters
+        default: Amazon RDS Configuration
+      Parameters:
+      - DBEngine
+      - DBUsername
+      - DBUserPassword
+      - DBInstanceClass
+    - Label:
+        default: AWS Quick Start Configuration
       Parameters:
       - QSS3BucketName
       - QSS3KeyPrefix
     ParameterLabels:
       ActivitiLicense:
-        default: Activiti License location URL
+        default: Activiti license location URL
       APSInstanceType:
-        default: The instance type to deploy APS to
+        default: APS instance type
       AsposeLicense:
-        default: Aspose License Location URL
+        default: Aspose license location URL
       AvailabilityZones:
-        default: The AZ's to deploy to.
+        default: Availability Zones
       DBEngine:
-        default: The engine type for the RDS instances
+        default: DB engine
+      DBInstanceClass:
+        default: RDS DB instance class
       DBUsername:
-        default: The master username for the RDS instances
+        default: Master user name
       DBUserPassword:
-        default: The master password for the RDS instances
+        default: Master user password
       KeyPairName:
-        default: The key pair name to use to access the instances
+        default: Key pair name
       OperatorEmail:
-        default: The email address to send notifications to
+        default: Notifications email
       PrivateSubnet1CIDR:
-        default: The CIDR block for the first private subnet
+        default: Private subnet 1 CIDR
       PrivateSubnet2CIDR:
-        default: The CIDR block for the second private subnet
+        default: Private subnet 2 CIDR
       PublicSubnet1CIDR:
-        default: The CIDR block for the first public subnet
+        default: Public subnet 1 CIDR
       PublicSubnet2CIDR:
-        default: The CIDR block for the second public subnet
+        default: Public subnet 2 CIDR
+      QSS3BucketName:
+        default: Quick Start S3 bucket name
+      QSS3KeyPrefix:
+        default: Quick Start S3 key prefix
       RemoteAccessCIDR:
-        default: The CIDR block to allow remote access
-      RDSInstanceType:
-        default: The instance type for the RDS instances
+        default: Allowed bastion external access CIDR
       UserEmailAddress:
-        default: The email address used to login to the APS app
+        default: User email address
       UserPassword:
-        default: The new password that will be used to login to the APS app
+        default: User password
       VPCCIDR:
-        default: The CIDR block for the VPC to create
+        default: VPC CIDR
 Parameters:
   ActivitiLicense:
     Type: String
@@ -121,16 +125,6 @@ Parameters:
     Description: List of Availability Zones to use for the subnets in the VPC. Please
       select a minimum of two
     Type: List<AWS::EC2::AvailabilityZone::Name>
-  DBUserPassword:
-    Description: The master password for the RDS instances
-    Type: String
-    MinLength: 1
-    NoEcho: true
-  DBUsername:
-    Default: activiti
-    Description: The master username for the RDS instances
-    Type: String
-    MinLength: 1
   DBEngine:
     Default: aurora
     Description: The engine type for the RDS instances
@@ -139,6 +133,27 @@ Parameters:
     - mysql
     - postgres
     - aurora
+  DBInstanceClass:
+    Default: db.r3.large
+    Description: The RDS instance class for the DB instances
+    Type: String
+    AllowedValues:
+    - db.r3.xlarge
+    - db.r3.large
+    - db.r3.2xlarge
+    - db.r3.4xlarge
+    - db.r3.8xlarge
+    ConstraintDescription: Must contain valid RDS DB instance class
+  DBUsername:
+    Default: activiti
+    Description: The master username for the RDS instances
+    Type: String
+    MinLength: 1
+  DBUserPassword:
+    Description: The master password for the RDS instances
+    Type: String
+    MinLength: 1
+    NoEcho: true
   KeyPairName:
     Description: The name of an existing public/private key pair, which allows you
       to securely connect to your instance after it launches
@@ -179,17 +194,6 @@ Parameters:
       Zone 2
     Type: String
     MinLength: 10
-  RDSInstanceType:
-    Default: db.r3.large
-    Description: Type of EC2 instance for the DB instances
-    Type: String
-    AllowedValues:
-    - db.r3.xlarge
-    - db.r3.large
-    - db.r3.2xlarge
-    - db.r3.4xlarge
-    - db.r3.8xlarge
-    ConstraintDescription: Must contain valid RDS instance type
   RemoteAccessCIDR:
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$
     ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/x
@@ -304,9 +308,9 @@ Resources:
         DBEngine: !Ref DBEngine
         DBUsername: !Ref DBUsername
         DBUserPassword: !Ref DBUserPassword
-        KeyName: !Ref KeyPairName
+        KeyPairName: !Ref KeyPairName
         OperatorEmail: !Ref OperatorEmail
-        RDSInstanceType: !Ref RDSInstanceType
+        DBInstanceClass: !Ref DBInstanceClass
         PrivateSubnet1ID: !GetAtt VPCStack.Outputs.PrivateSubnet1AID
         PrivateSubnet2ID: !GetAtt VPCStack.Outputs.PrivateSubnet2AID
         PublicSubnet1ID: !GetAtt VPCStack.Outputs.PublicSubnet1ID

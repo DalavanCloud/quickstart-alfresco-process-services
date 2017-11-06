@@ -1,0 +1,74 @@
+[
+    {
+        "ParameterKey": "ActivitiLicense",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "APSInstanceType",
+        "ParameterValue": "m4.large"
+    },
+    {
+        "ParameterKey": "AsposeLicense",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "AvailabilityZones",
+        "ParameterValue": "$[alfred_getaz_2]"
+    },
+    {
+        "ParameterKey": "DBEngine",
+        "ParameterValue": "aurora"
+    },
+    {
+        "ParameterKey": "DBInstanceClass",
+        "ParameterValue": "db.r3.large"
+    },
+    {
+        "ParameterKey": "DBUsername",
+        "ParameterValue": "activiti"
+    },
+    {
+        "ParameterKey": "DBPassword",
+        "ParameterValue": "$[alfred_genpass_16]"
+    },
+    {
+        "ParameterKey": "KeyPairName",
+        "ParameterValue": "$[alfred_getkeypair]"
+    },
+    {
+        "ParameterKey": "OperatorEmail",
+        "ParameterValue": "operator@example.com"
+    },
+    {
+        "ParameterKey": "PrivateSubnet1CIDR",
+        "ParameterValue": "10.0.0.0/19"
+    },
+    {
+        "ParameterKey": "PrivateSubnet2CIDR",
+        "ParameterValue": "10.0.32.0/19"
+    },
+    {
+        "ParameterKey": "PublicSubnet1CIDR",
+        "ParameterValue": "10.0.128.0/20"
+    },
+    {
+        "ParameterKey": "PublicSubnet2CIDR",
+        "ParameterValue": "10.0.144.0/20"
+    },
+    {
+        "ParameterKey": "RemoteAccessCIDR",
+        "ParameterValue": "10.0.0.0/16"
+    },
+    {
+        "ParameterKey": "UserEmailAddress",
+        "ParameterValue": "user@example.com"
+    },
+    {
+        "ParameterKey": "UserPassword",
+        "ParameterValue": "$[alfred_genpass_16]"
+    },
+    {
+        "ParameterKey": "VPCCIDR",
+        "ParameterValue": "10.0.0.0/16"
+    }
+]
