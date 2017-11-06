@@ -28,7 +28,7 @@
         "ParameterValue": "activiti"
     },
     {
-        "ParameterKey": "DBPassword",
+        "ParameterKey": "DBUserPassword",
         "ParameterValue": "$[alfred_genpass_16]"
     },
     {
