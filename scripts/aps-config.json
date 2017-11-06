@@ -1,0 +1,33 @@
+{
+  "aps-core" : {
+    "activiti-admin-properties": {
+      "datasource.driver": "org.h2.Driver",
+      "datasource.url": "jdbc:h2:mem:db1;DB_CLOSE_DELAY=1000",
+      "hibernate.dialect": "org.hibernate.dialect.H2Dialect",
+      "rest.app.password": "@@PASSWORD@@"
+    },
+    "activiti-app-properties" : {
+      "datasource.driver" : "@@DB_DRIVER@@",
+      "datasource.url" : "jdbc:@@DB_ENGINE@@://@@DB_HOST@@:@@DB_PORT@@/process?connectTimeout=240000&socketTimeout=240000&autoReconnect=true&characterEncoding=UTF-8",
+      "hibernate.dialect" : "@@DB_HIBERNATE@@",
+      "datasource.username" : "@@DB_USERNAME@@",
+      "datasource.password" : "@@DB_PASSWORD@@",
+      "aspose.license":"/usr/share/tomcat/lib/Aspose.Total.Java.lic",
+      "security.asposeKey":"OMRE0aMxouti2Cb7asnLrbAVkn32WMe3RTbDH44p8hUtjbaFC+V/MedBApNCa+b8",
+      "spring.freemarker.template-loader-path":"classpath:/email-templates",
+      "elastic-search.server.type": "none",
+      "admin.email": "@@EMAIL_ADDRESS@@",
+      "contentstorage.s3.accessKey":"@@ACCESS_KEY@@",
+      "contentstorage.s3.secretKey":"@@SECRET_KEY@@",
+      "contentstorage.s3.bucketName":"@@BUCKET_NAME@@",
+      "contentstorage.fs.rootFolder":""
+    },
+    "admin_app": {
+      "install": true
+    },
+    "redownload_apps": false
+  },
+  "run_list": [
+    "aps-core::redeploy"
+  ]
+}
