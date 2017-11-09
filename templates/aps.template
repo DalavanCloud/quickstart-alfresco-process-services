@@ -152,12 +152,12 @@ Parameters:
     Default: activiti
     Description: The master username for the RDS instances
     Type: String
-    MinLength: 1
+    MinLength: 8
   DBUserPassword:
     Description: The master password for the RDS instances
     Type: String
     NoEcho: true
-    MinLength: 1
+    MinLength: 8
   DesiredNumberOfAPSNodes:
     Type: String
     MinLength: 1
@@ -224,7 +224,7 @@ Parameters:
     ConstraintDescription: Must be a valid email address.
     Description: Email address that is used to login to APS
     Type: String
-    MinLength: 1
+    MinLength: 5
   UserPassword:
     Description: Password to use for accessing the APS app
     Type: String
@@ -782,6 +782,8 @@ Resources:
         WaitOnResourceSignals: true
   UpdateUserPasswordRole:
     Type: AWS::IAM::Role
+    DependsOn:
+      - APSAutoScalingGroup
     Properties:
       AssumeRolePolicyDocument:
         Version: 2012-10-17
