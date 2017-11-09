@@ -9,7 +9,7 @@
     },
     {
         "ParameterKey": "AsposeLicense",
-        "ParameterValue": ""
+        "ParameterValue": "http://dl.alfresco.com/release/enterprise/APS/licenses/transform.lic"
     },
     {
         "ParameterKey": "AvailabilityZones",
