@@ -1,7 +1,7 @@
 [
     {
         "ParameterKey": "ActivitiLicense",
-        "ParameterValue": ""
+        "ParameterValue": "https://s3.amazonaws.com/$[alfred_getlicensebucket]/alfresco/aps/activiti.lic"
     },
     {
         "ParameterKey": "APSInstanceType",
