@@ -27,7 +27,7 @@ Metadata:
     - Label:
         default: Alfresco Process Services Configuration
       Parameters:
-      - ActivitiLicense
+      - APSLicense
       - AsposeLicense
       - OperatorEmail
       - UserEmailAddress
@@ -45,8 +45,8 @@ Metadata:
       - QSS3BucketName
       - QSS3KeyPrefix
     ParameterLabels:
-      ActivitiLicense:
-        default: Activiti license location URL
+      APSLicense:
+        default: Alfresco Process Services license location URL
       APSInstanceType:
         default: APS instance type
       AsposeLicense:
@@ -86,15 +86,15 @@ Metadata:
       VPCCIDR:
         default: VPC CIDR
 Parameters:
-  ActivitiLicense:
+  APSLicense:
     Type: String
     Default: Type a public URL, e.g., URL to an S3 bucket that contains your license
-    Description: URL of your Activiti license. If you don't have a license, please
+    Description: URL of your Alfresco Process Services license. If you don't have a license, please
       request one from your sales representative or contact Alfresco Support at http://support.alfresco.com.
     MinLength: 1
   AsposeLicense:
     Type: String
-    Default: Type a public URL, e.g., URL to an S3 bucket that contains your license
+    Default: http://dl.alfresco.com/release/enterprise/APS/licenses/transform.lic
     Description: URL of your Aspose license. If you don't have a license, please request
       one from your sales representative or contact Alfresco Support at http://support.alfresco.com.
       The license provided in the form is a publicly available license.
@@ -301,7 +301,7 @@ Resources:
             - !Sub s3-gov-west-1
             - s3
       Parameters:
-        ActivitiLicense: !Ref ActivitiLicense
+        APSLicense: !Ref APSLicense
         APSInstanceType: !Ref APSInstanceType
         AsposeLicense: !Ref AsposeLicense
         BastionSecurityGroupId: !GetAtt BastionStack.Outputs.BastionSecurityGroupID

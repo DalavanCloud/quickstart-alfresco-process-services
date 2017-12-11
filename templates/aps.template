@@ -26,7 +26,7 @@ Metadata:
     - Label:
         default: Alfresco Process Services Configuration
       Parameters:
-      - ActivitiLicense
+      - APSLicense
       - AsposeLicense
       - DesiredNumberOfAPSNodes
       - MaxNumberOfAPSNodes
@@ -47,7 +47,7 @@ Metadata:
       - QSS3BucketName
       - QSS3KeyPrefix
     ParameterLabels:
-      ActivitiLicense:
+      APSLicense:
         default: Activiti license location URL
       APSInstanceType:
         default: APS instance type
@@ -92,7 +92,7 @@ Metadata:
       VPCID:
         default: VPC ID
 Parameters:
-  ActivitiLicense:
+  APSLicense:
     Type: String
     Description: URL of your Activiti license. If you don't have a license, please
       request one from your sales representative or contact Alfresco Support at http://support.alfresco.com.
@@ -122,6 +122,7 @@ Parameters:
     MinLength: 1
   AsposeLicense:
     Type: String
+    Default: http://dl.alfresco.com/release/enterprise/APS/licenses/transform.lic
     Description: URL of your Aspose license. If you don't have a license, please request
       one from your sales representative or contact Alfresco Support at http://support.alfresco.com.
     MinLength: 1
@@ -286,7 +287,33 @@ Mappings:
     AMI:
       ALFRESCOPS: Marketplace Image APS - 1507889617
     us-east-1:
-      ALFRESCOPS: ami-8961aaf3
+      ALFRESCOPS: ami-e0f1789a
+    us-east-2:
+      ALFRESCOPS: ami-26e7c943
+    us-west-1:
+      ALFRESCOPS: ami-851f27e5
+    us-west-2:
+      ALFRESCOPS: ami-884d9ff0
+    ca-central-1:
+      ALFRESCOPS: ami-f69d2692
+    eu-central-1:
+      ALFRESCOPS: ami-8f31b2e0
+    eu-west-1:
+      ALFRESCOPS: ami-d89f2ba1
+    eu-west-2:
+      ALFRESCOPS: ami-5bd6c93f
+    ap-southeast-1:
+      ALFRESCOPS: ami-8d2572ee
+    ap-southeast-2:
+      ALFRESCOPS: ami-1b4da679
+    ap-south-1:
+      ALFRESCOPS: ami-83c08fec
+    ap-northeast-1:
+      ALFRESCOPS: ami-04873562
+    ap-northeast-2:
+      ALFRESCOPS: ami-b79532d9
+    sa-east-1:
+      ALFRESCOPS: ami-e26b2e8e
 Resources:
   NotificationTopic:
     Type: AWS::SNS::Topic
@@ -650,7 +677,7 @@ Resources:
                   sed -i 's/@@ACCESS_KEY@@/${AccessKey}/g' /etc/chef/aps-client.json
                   sed -i 's#@@SECRET_KEY@@#${SecretKey}#g' /etc/chef/aps-client.json
                   sed -i 's/@@BUCKET_NAME@@/${BucketName}/g' /etc/chef/aps-client.json
-                  curl -L ${ActivitiLicense} -o /usr/share/tomcat/lib/activiti.lic
+                  curl -L ${APSLicense} -o /usr/share/tomcat/lib/activiti.lic
                   curl -L ${AsposeLicense} -o /usr/share/tomcat/lib/Aspose.Total.Java.lic
                 - DB_Engine:
                     !If
