@@ -21,7 +21,7 @@
     },
     {
         "ParameterKey": "DBInstanceClass",
-        "ParameterValue": "db.r3.large"
+        "ParameterValue": "db.r4.large"
     },
     {
         "ParameterKey": "DBUsername",
