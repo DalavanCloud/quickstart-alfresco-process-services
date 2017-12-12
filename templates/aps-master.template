@@ -138,11 +138,11 @@ Parameters:
     Description: The RDS instance class for the DB instances
     Type: String
     AllowedValues:
-    - db.r3.xlarge
-    - db.r3.large
-    - db.r3.2xlarge
-    - db.r3.4xlarge
-    - db.r3.8xlarge
+    - db.r4.xlarge
+    - db.r4.large
+    - db.r4.2xlarge
+    - db.r4.4xlarge
+    - db.r4.8xlarge
     ConstraintDescription: Must contain valid RDS DB instance class
   DBUsername:
     Default: activiti
