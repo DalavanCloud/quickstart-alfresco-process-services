@@ -134,7 +134,7 @@ Parameters:
     - postgres
     - aurora
   DBInstanceClass:
-    Default: db.r3.large
+    Default: db.r4.large
     Description: The RDS instance class for the DB instances
     Type: String
     AllowedValues:
