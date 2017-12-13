@@ -242,7 +242,7 @@ Conditions:
       - ap-southeast-1
     - !Equals
       - !Ref AWS::Region
-      - eu-central-1
+      - cn-northwest-1
     - !Equals
       - !Ref AWS::Region
       - sa-east-1
@@ -509,8 +509,11 @@ Resources:
       DBSubnetGroupName: !Ref APSRDSSubnetGroup
       Engine:
         !If
-        - UseAurora
-        - aurora
+        - EngineIsAurora
+        - !If
+          - IsAuroraRegion
+          - !Ref DBEngine
+          - mysql
         - !Ref DBEngine
       EngineVersion:
         !If
@@ -579,8 +582,11 @@ Resources:
         - !Ref AWS::NoValue
       Engine:
         !If
-        - UseAurora
-        - aurora
+        - EngineIsAurora
+        - !If
+          - IsAuroraRegion
+          - !Ref DBEngine
+          - mysql
         - !Ref DBEngine
       PubliclyAccessible: 'false'
       SourceDBInstanceIdentifier:
@@ -681,7 +687,7 @@ Resources:
                   curl -L ${AsposeLicense} -o /usr/share/tomcat/lib/Aspose.Total.Java.lic
                 - DB_Engine:
                     !If
-                    - UseAurora
+                    - EngineIsAurora
                     - mysql
                     - !Ref DBEngine
                   DBDriver:
