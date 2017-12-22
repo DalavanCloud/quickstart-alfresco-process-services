@@ -159,6 +159,8 @@ Parameters:
     Type: String
     NoEcho: true
     MinLength: 8
+    AllowedPattern: ^[^\/"@]+$
+    ConstraintDescription: The password for the master database user can be any printable ASCII character except "/", """, or "@". Minimum 8 Characters
   DesiredNumberOfAPSNodes:
     Type: String
     MinLength: 1
