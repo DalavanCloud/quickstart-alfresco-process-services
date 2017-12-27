@@ -152,7 +152,9 @@ Parameters:
   DBUserPassword:
     Description: The master password for the RDS instances
     Type: String
-    MinLength: 1
+    MinLength: 8
+    AllowedPattern: ^[^\/"@]+$
+    ConstraintDescription: The password for the master database user can be any printable ASCII character except "/", """, or "@". Minimum 8 Characters
     NoEcho: true
   KeyPairName:
     Description: The name of an existing public/private key pair, which allows you
