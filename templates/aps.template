@@ -233,6 +233,8 @@ Parameters:
     Type: String
     MinLength: 1
     NoEcho: true
+    AllowedPattern: ^(?=.*[a-z])(?=.*[A-Z]).+$
+    ConstraintDescription: The Password must contain a mix of upper and lower case characters
   VPCID:
     Type: AWS::EC2::VPC::Id
     Description: The ID of the VPC created by the VPC stack
@@ -840,15 +842,30 @@ Resources:
           import json
           import base64
           import logging
+          logger = logging.getLogger()
+          logger.setLevel(logging.INFO)
           from botocore.vendored import requests
           import cfnresponse
 
+          def make_api_call(api, data, headers):
+              logger.info(api)
+              response = requests.post(
+                  api,
+                  data=json.dumps(data),
+                  headers=headers
+              )
+              if response.status_code == 200:
+                  logger.info("API call {} success!".format(api))
+                  return True
+              else:
+                  logger.error("API call {} error!".format(api))
+                  logger.error(response.status_code)
+                  logger.error(response.text)
+                  return False
+
           def handler(event, context):
-              logger = logging.getLogger()
-              logger.setLevel(logging.INFO)
               if event['RequestType'] == 'Create':
-                  api = "{}/api/enterprise/users/1".format(event['ResourceProperties']['Url'])
-                  logger.info(api)
+                  api = "{}/api/enterprise/profile-password".format(event['ResourceProperties']['Url'])
                   username = event['ResourceProperties']['Username']
                   password = event['ResourceProperties']['OldPassword']
                   new_password = event['ResourceProperties']['NewPassword']
@@ -859,22 +876,16 @@ Resources:
                       "Authorization": "Basic {}".format(base64string)
                   }
                   data = {
-                      "action":"updatePassword",
-                      "newPassword": "{}".format(new_password),
-                      "oldPassword": "{}".format(password)
+                      "oldPassword": "{}".format(password),
+                      "newPassword": "{}".format(new_password)
                   }
                   try:
-                      response = requests.post(api, data=json.dumps(data), headers=headers)
-                      if response.status_code == 200:
-                          logger.info("Password update success!")
+                      if make_api_call(api, data, headers):
                           cfnresponse.send(event, context, cfnresponse.SUCCESS, {}, None)
                       else:
-                          logger.info("Password update error!")
-                          logger.info(response.status_code)
-                          logger.info(response.text)
                           cfnresponse.send(event, context, cfnresponse.FAILED, {}, None)
                   except requests.HTTPError as error:
-                      logger.error("%s", error)
+                      logger.error("Unable to update password: %s", error)
                       cfnresponse.send(event, context, cfnresponse.FAILED, {}, None)
               else:
                   cfnresponse.send(event, context, cfnresponse.SUCCESS, {}, None)

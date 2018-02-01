@@ -231,6 +231,8 @@ Parameters:
     Type: String
     MinLength: 1
   UserPassword:
+    AllowedPattern: ^(?=.*[a-z])(?=.*[A-Z]).+$
+    ConstraintDescription: The Password must contain a mix of upper and lower case characters
     Description: Password to use for logging in to the APS app
     Type: String
     MinLength: 1
