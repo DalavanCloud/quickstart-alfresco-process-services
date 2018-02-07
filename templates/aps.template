@@ -289,7 +289,7 @@ Mappings:
       number: 5.7.11
   AWSAMIRegionMap:
     AMI:
-      ALFRESCOPS: Marketplace Image APS - 1507889617
+      ALFRESCOPS: MarketPlace Image APS - 1507889617-6c019ea4-d489-4d40-8b2d-7ec662c348ff-ami-8961aaf3.4
     ap-northeast-1:
       ALFRESCOPS: ami-04873562
     ap-northeast-2:
@@ -660,7 +660,7 @@ Resources:
             /etc/chef/aps-client.json:
               source:
                 !Sub
-                - https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}scripts/aps-config.json
+                - https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}scripts/aps-config.json
                 - QSS3Region:
                     !If
                     - GovCloudCondition
@@ -723,7 +723,7 @@ Resources:
             /etc/chef/run.sh:
               source:
                 !Sub
-                - https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}scripts/run.sh
+                - https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}scripts/run.sh
                 - QSS3Region:
                     !If
                     - GovCloudCondition
