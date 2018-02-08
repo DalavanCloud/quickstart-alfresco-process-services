@@ -29,6 +29,9 @@ Metadata:
       Parameters:
       - APSLicense
       - AsposeLicense
+      - DesiredNumberOfAPSNodes
+      - MaxNumberOfAPSNodes
+      - MinNumberOfAPSNodes
       - OperatorEmail
       - UserEmailAddress
       - UserPassword
@@ -61,8 +64,14 @@ Metadata:
         default: Master user name
       DBUserPassword:
         default: Master user password
+      DesiredNumberOfAPSNodes:
+        default: Desired number of nodes
       KeyPairName:
         default: Key pair name
+      MaxNumberOfAPSNodes:
+        default: Maximum number of nodes
+      MinNumberOfAPSNodes:
+        default: Minimum number of nodes
       OperatorEmail:
         default: Notifications email
       PrivateSubnet1CIDR:
@@ -156,10 +165,25 @@ Parameters:
     AllowedPattern: ^[^\/"@]+$
     ConstraintDescription: The password for the master database user can be any printable ASCII character except "/", """, or "@". Minimum 8 Characters
     NoEcho: true
+  DesiredNumberOfAPSNodes:
+    Type: String
+    MinLength: 1
+    Description: The desired number of APS instance to run
+    Default: 2
   KeyPairName:
     Description: The name of an existing public/private key pair, which allows you
       to securely connect to your instance after it launches
     Type: AWS::EC2::KeyPair::KeyName
+  MaxNumberOfAPSNodes:
+    Type: String
+    MinLength: 1
+    Description: The maximum number of APS instances to run
+    Default: 10
+  MinNumberOfAPSNodes:
+    Type: String
+    MinLength: 1
+    Description: The minimum number of APS instances to run
+    Default: 2
   OperatorEmail:
     AllowedPattern: ([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)
     ConstraintDescription: Must be a valid email address.
@@ -314,7 +338,10 @@ Resources:
         DBEngine: !Ref DBEngine
         DBUsername: !Ref DBUsername
         DBUserPassword: !Ref DBUserPassword
+        DesiredNumberOfAPSNodes: !Ref DesiredNumberOfAPSNodes
         KeyPairName: !Ref KeyPairName
+        MaxNumberOfAPSNodes: !Ref MaxNumberOfAPSNodes
+        MinNumberOfAPSNodes: !Ref MinNumberOfAPSNodes
         OperatorEmail: !Ref OperatorEmail
         DBInstanceClass: !Ref DBInstanceClass
         PrivateSubnet1ID: !GetAtt VPCStack.Outputs.PrivateSubnet1AID

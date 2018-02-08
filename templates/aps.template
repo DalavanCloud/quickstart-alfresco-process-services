@@ -48,7 +48,7 @@ Metadata:
       - QSS3KeyPrefix
     ParameterLabels:
       APSLicense:
-        default: Activiti license location URL
+        default: Alfresco Process Services license location URL
       APSInstanceType:
         default: APS instance type
       AsposeLicense:
