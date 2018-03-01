@@ -26,7 +26,8 @@ Metadata:
     - Label:
         default: Alfresco Process Services Configuration
       Parameters:
-      - APSLicense
+      - APSLicenseBucketName
+      - APSLicenseBucketKey
       - AsposeLicense
       - DesiredNumberOfAPSNodes
       - MaxNumberOfAPSNodes
@@ -47,8 +48,10 @@ Metadata:
       - QSS3BucketName
       - QSS3KeyPrefix
     ParameterLabels:
-      APSLicense:
-        default: Alfresco Process Services license location URL
+      APSLicenseBucketName:
+        default: S3 bucket where license file resides; the bucket and files should be private.
+      APSLicenseBucketKey:
+        default: /path/to/activiti.lic (path starting with a leading ‘/‘)
       APSInstanceType:
         default: APS instance type
       AsposeLicense:
@@ -92,9 +95,15 @@ Metadata:
       VPCID:
         default: VPC ID
 Parameters:
-  APSLicense:
+  APSLicenseBucketName:
+    AllowedPattern: ^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$
+    ConstraintDescription: License file bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).
     Type: String
-    Description: URL of your Activiti license. If you don't have a license, please
+    Description: Name of S3 bucket where license file resides
+    MinLength: 1
+  APSLicenseBucketKey:
+    Type: String
+    Description: Path to your Activiti license. If you don't have a license, please
       request one from your sales representative or contact Alfresco Support at http://support.alfresco.com.
     MinLength: 1
   APSInstanceType:
@@ -374,6 +383,8 @@ Resources:
             Action: s3:GetObject
             Resource:
             - !Sub arn:aws:s3:::${QSS3BucketName}/${QSS3KeyPrefix}*
+            - !Sub arn:aws:s3:::${APSLicenseBucketName}
+            - !Sub arn:aws:s3:::${APSLicenseBucketName}${APSLicenseBucketKey}
   InstanceRoleProfile:
     Type: AWS::IAM::InstanceProfile
     DependsOn:
@@ -650,6 +661,7 @@ Resources:
           roleName: !Ref InstanceRole
           buckets:
           - !Ref QSS3BucketName
+          - !Ref APSLicenseBucketName
       AWS::CloudFormation::Init:
         configSets:
           InstallAndRun:
@@ -670,6 +682,18 @@ Resources:
               owner: root
               group: root
               authentication: S3AccessCreds
+            /usr/share/tomcat/lib/activiti.lic:
+              "source":
+                "Fn::Join":
+                  - ''
+                  - - 'https://'
+                    - !Ref APSLicenseBucketName
+                    - '.s3.amazonaws.com'
+                    - !Ref APSLicenseBucketKey
+              mode: "000700"
+              owner: "tomcat"
+              group: "tomcat"
+              authentication: "S3AccessCreds"
             /etc/chef/replaceValues.sh:
               content:
                 !Sub
@@ -687,7 +711,6 @@ Resources:
                   sed -i 's/@@ACCESS_KEY@@/${AccessKey}/g' /etc/chef/aps-client.json
                   sed -i 's#@@SECRET_KEY@@#${SecretKey}#g' /etc/chef/aps-client.json
                   sed -i 's/@@BUCKET_NAME@@/${BucketName}/g' /etc/chef/aps-client.json
-                  curl -L ${APSLicense} -o /usr/share/tomcat/lib/activiti.lic
                   curl -L ${AsposeLicense} -o /usr/share/tomcat/lib/Aspose.Total.Java.lic
                 - DB_Engine:
                     !If
