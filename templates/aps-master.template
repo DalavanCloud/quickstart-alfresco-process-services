@@ -27,7 +27,8 @@ Metadata:
     - Label:
         default: Alfresco Process Services Configuration
       Parameters:
-      - APSLicense
+      - APSLicenseBucketName
+      - APSLicenseBucketKey
       - AsposeLicense
       - DesiredNumberOfAPSNodes
       - MaxNumberOfAPSNodes
@@ -48,8 +49,10 @@ Metadata:
       - QSS3BucketName
       - QSS3KeyPrefix
     ParameterLabels:
-      APSLicense:
-        default: Alfresco Process Services license location URL
+      APSLicenseBucketName:
+        default: S3 bucket where license file resides; the bucket and files should be private.
+      APSLicenseBucketKey:
+        default: /path/to/activiti.lic (path starting with a leading ‘/‘)
       APSInstanceType:
         default: APS instance type
       AsposeLicense:
@@ -95,10 +98,17 @@ Metadata:
       VPCCIDR:
         default: VPC CIDR
 Parameters:
-  APSLicense:
+  APSLicenseBucketName:
+   AllowedPattern: ^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$
+   ConstraintDescription: License file bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).
+   Type: String
+   Default: "activiti-lic"
+   Description: Name of S3 bucket where license file resides
+   MinLength: 1
+  APSLicenseBucketKey:
     Type: String
-    Default: Type a public URL, e.g., URL to an S3 bucket that contains your license
-    Description: URL of your Alfresco Process Services license. If you don't have a license, please
+    Default: /path/to/activiti.lic
+    Description: Path to Alfresco Process Services license. If you don't have a license, please
       request one from your sales representative or contact Alfresco Support at http://support.alfresco.com.
     MinLength: 1
   AsposeLicense:
@@ -331,7 +341,8 @@ Resources:
             - !Sub s3-gov-west-1
             - s3
       Parameters:
-        APSLicense: !Ref APSLicense
+        APSLicenseBucketName: !Ref APSLicenseBucketName
+        APSLicenseBucketKey: !Ref APSLicenseBucketKey
         APSInstanceType: !Ref APSInstanceType
         AsposeLicense: !Ref AsposeLicense
         BastionSecurityGroupId: !GetAtt BastionStack.Outputs.BastionSecurityGroupID
