@@ -659,9 +659,6 @@ Resources:
         S3AccessCreds:
           type: S3
           roleName: !Ref InstanceRole
-          buckets:
-          - !Ref QSS3BucketName
-          - !Ref APSLicenseBucketName
       AWS::CloudFormation::Init:
         configSets:
           InstallAndRun:
@@ -683,17 +680,13 @@ Resources:
               group: root
               authentication: S3AccessCreds
             /usr/share/tomcat/lib/activiti.lic:
-              "source":
-                "Fn::Join":
-                  - ''
-                  - - 'https://'
-                    - !Ref APSLicenseBucketName
-                    - '.s3.amazonaws.com'
-                    - !Ref APSLicenseBucketKey
-              mode: "000700"
-              owner: "tomcat"
-              group: "tomcat"
-              authentication: "S3AccessCreds"
+              source:
+                !Sub
+                - https://${APSLicenseBucketName}.s3.amazonaws.com${APSLicenseBucketKey}
+              mode: '000700'
+              owner: tomcat
+              group: tomcat
+              authentication: S3AccessCreds
             /etc/chef/replaceValues.sh:
               content:
                 !Sub
