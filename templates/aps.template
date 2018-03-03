@@ -669,11 +669,11 @@ Resources:
             /etc/chef/aps-client.json:
               source:
                 !Sub
-                - https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}scripts/aps-config.json
+                - https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}scripts/aps-config.json
                 - QSS3Region:
                     !If
                     - GovCloudCondition
-                    - s3-gov-west-1
+                    - !Sub s3-gov-west-1
                     - s3
               mode: '000700'
               owner: root
@@ -682,7 +682,12 @@ Resources:
             /usr/share/tomcat/lib/activiti.lic:
               source:
                 !Sub
-                - https://${APSLicenseBucketName}.s3.amazonaws.com${APSLicenseBucketKey}
+                - https://${APSLicenseBucketName}.${QSS3Region}.amazonaws.com${APSLicenseBucketKey}
+                - QSS3Region:
+                    !If
+                    - GovCloudCondition
+                    - !Sub s3-gov-west-1
+                    - s3
               mode: '000700'
               owner: tomcat
               group: tomcat
@@ -739,11 +744,11 @@ Resources:
             /etc/chef/run.sh:
               source:
                 !Sub
-                - https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}scripts/run.sh
+                - https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}scripts/run.sh
                 - QSS3Region:
                     !If
                     - GovCloudCondition
-                    - s3-gov-west-1
+                    - !Sub s3-gov-west-1
                     - s3
               mode: '000700'
               owner: root
@@ -767,30 +772,31 @@ Resources:
       - !Ref APSSecurityGroup
       IamInstanceProfile: !Ref InstanceRoleProfile
       UserData:
-        Fn::Base64: !Sub |
-          #!/bin/bash
-          systemctl stop chef-boot.service
-          systemctl disable chef-boot.service
-          /usr/bin/easy_install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz || sleep 10
-          /usr/bin/cfn-init --stack ${AWS::StackName} --resource APSLaunchConfig --configsets InstallAndRun --region ${AWS::Region}
-          echo "Waiting for APS to start..."
-          RESULT=0
-          ITERATION=0
-          TIMEOUT=45
-          COMMAND="curl -s -o /dev/null -I -w %{http_code} 127.0.0.1:8080/activiti-app/index.html"
-          while HTTPCODE=$($COMMAND); [[ $HTTPCODE != 200 ]];
-            do
-              if [[ $ITERATION -eq $TIMEOUT ]]; then
-                echo "APS timeout after $TIMEOUT minutes."
-                RESULT=1
-                break
-              fi
-              echo "HTTPCODE=$HTTPCODE Waiting for APS to start... $((ITERATION++))/$TIMEOUT"
-              if [[ $HTTPCODE != 200 ]]; then
-                sleep 1m
-              fi
-            done
-          /usr/bin/cfn-signal -e $RESULT --stack ${AWS::StackName} --resource APSAutoScalingGroup --region ${AWS::Region}
+        Fn::Base64: 
+          !Sub |
+            #!/bin/bash
+            systemctl stop chef-boot.service
+            systemctl disable chef-boot.service
+            /usr/bin/easy_install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz || sleep 10
+            /usr/bin/cfn-init --stack ${AWS::StackName} --resource APSLaunchConfig --configsets InstallAndRun --region ${AWS::Region}
+            echo "Waiting for APS to start..."
+            RESULT=0
+            ITERATION=0
+            TIMEOUT=45
+            COMMAND="curl -s -o /dev/null -I -w %{http_code} 127.0.0.1:8080/activiti-app/index.html"
+            while HTTPCODE=$($COMMAND); [[ $HTTPCODE != 200 ]];
+              do
+                if [[ $ITERATION -eq $TIMEOUT ]]; then
+                  echo "APS timeout after $TIMEOUT minutes."
+                  RESULT=1
+                  break
+                fi
+                echo "HTTPCODE=$HTTPCODE Waiting for APS to start... $((ITERATION++))/$TIMEOUT"
+                if [[ $HTTPCODE != 200 ]]; then
+                  sleep 1m
+                fi
+              done
+            /usr/bin/cfn-signal -e $RESULT --stack ${AWS::StackName} --resource APSAutoScalingGroup --region ${AWS::Region}
   APSAutoScalingGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
     DependsOn:
