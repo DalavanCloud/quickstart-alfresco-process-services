@@ -673,7 +673,7 @@ Resources:
                 - QSS3Region:
                     !If
                     - GovCloudCondition
-                    - !Sub s3-gov-west-1
+                    - s3-gov-west-1
                     - s3
               mode: '000700'
               owner: root
@@ -743,7 +743,7 @@ Resources:
                 - QSS3Region:
                     !If
                     - GovCloudCondition
-                    - !Sub s3-gov-west-1
+                    - s3-gov-west-1
                     - s3
               mode: '000700'
               owner: root
