@@ -9,6 +9,7 @@ This Quick Start presents an enterprise-grade Alfresco Process Services configur
 
 ![Quick Start architecture for Alfresco Process Services on AWS](https://d0.awsstatic.com/partner-network/QuickStart/datasheets/alfresco-process-services-architecture-diagram.png)
 
+
 This Quick Start architecture includes:
 * Highly available Alfresco Process Services nodes deployed across two availability zones in your chosen AWS Region. The servers take full advantage of AWS resources such as AWS Auto Scaling and Elastic Load Balancing with CPU-based alerts that you can customize to determine how your infrastructure scales.
 * Amazon Relational Database System (Amazon RDS), which, by default, is Amazon Aurora (subject to AWS Region permissions).
