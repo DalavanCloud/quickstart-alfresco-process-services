@@ -5,7 +5,7 @@ Description: This master template creates a VPC infrastructure for a multi-AZ, m
   in an auto scaling group and an APS cluster behind an ELB. The cluster is configured
   to use a multi-AZ Amazon RDS MySQL instance for the database or Aurora, region permitting.
   **WARNING** This template creates EC2 instances and related resources. You will
-  be billed for the AWS resources used if you create a stack from this template.
+  be billed for the AWS resources used if you create a stack from this template. (qs-1o9dh5iqd)
 Metadata:
   AWS::CloudFormation::Interface:
     ParameterGroups:

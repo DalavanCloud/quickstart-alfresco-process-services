@@ -5,7 +5,7 @@ Description: This Alfresco Process Services 1.6.4 template deploys a cluster of 
   cluster is configured to use a multi-AZ Amazon RDS Aurora instance for the database
   (MySQL or PostgreSQL for non-Amazon Aurora regions). **WARNING** This template creates
   EC2 instances and related resources. You will be billed for the AWS resources used
-  if you create a stack from this template
+  if you create a stack from this template. (qs-1o9dh5iqi)
 Metadata:
   AWS::CloudFormation::Interface:
     ParameterGroups:
