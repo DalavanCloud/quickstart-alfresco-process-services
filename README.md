@@ -17,5 +17,7 @@ The Alfresco Process Services deployment is automated by using nested AWS CloudF
 
 You can either deploy Alfresco Process Services into a new virtual private cloud (VPC), in an end-to-end deployment. This option builds a new AWS environment consisting of the VPC, subnets, NAT gateways, security groups, bastion hosts, and other infrastructure components, and then deploys Alfresco Process Services into this new VPC. Or you can deploy Alfresco Process Services into an existing VPC. This option provisions Alfresco Process Services in your existing AWS infrastructure.
 
-Deployment Guide: [https://s3.amazonaws.com/quickstart-reference/alfresco/process/services/latest/doc/alfresco-process-services-on-the-aws-cloud.pdf](https://s3.amazonaws.com/quickstart-reference/alfresco/process/services/latest/doc/alfresco-process-services-on-the-aws-cloud.pdf)
+For architectural details, best practices, step-by-step instructions, and customization options, see the [deployment guide](https://s3.amazonaws.com/quickstart-reference/alfresco/process/services/latest/doc/alfresco-process-services-on-the-aws-cloud.pdf)
 
+To post feedback, submit feature ideas, or report bugs, use the **Issues** section of this GitHub repo.
+If you'd like to submit code for this Quick Start, please review the [AWS Quick Start Contributor's Kit](https://aws-quickstart.github.io/).
