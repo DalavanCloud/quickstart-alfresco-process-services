@@ -49,61 +49,61 @@ Metadata:
       - QSS3KeyPrefix
     ParameterLabels:
       APSLicenseBucketName:
-        default: S3 bucket where license file resides; the bucket and files should be private.
+        default: S3 Bucket Where License File Resides; The Bucket and Files Should be Private.
       APSLicenseBucketKey:
-        default: /path/to/activiti.lic (path starting with a leading ‘/‘)
+        default: /Path/To/AlfrescoProcessServices.lic (Path Starting With a Leading ‘/‘)
       APSInstanceType:
-        default: APS instance type
+        default: APS Instance Type
       AsposeLicense:
-        default: Aspose license location URL
+        default: Aspose License Location URL
       BastionSecurityGroupId:
         default: Bastion security group ID
       DBEngine:
-        default: DB engine
+        default: DB Engine
       DBInstanceClass:
-        default: RDS DB instance class
+        default: RDS DB Instance Class
       DBUsername:
-        default: Master user name
+        default: Master User Name
       DBUserPassword:
-        default: Master user password
+        default: Master User Password
       DesiredNumberOfAPSNodes:
-        default: Desired number of nodes
+        default: Desired Number of Nodes
       KeyPairName:
-        default: Key pair name
+        default: Key Pair Name
       MaxNumberOfAPSNodes:
-        default: Maximum number of nodes
+        default: Maximum Number of Nodes
       MinNumberOfAPSNodes:
-        default: Minimum number of nodes
+        default: Minimum Number of Nodes
       OperatorEmail:
-        default: Notifications email
+        default: Notifications Email
       PrivateSubnet1ID:
-        default: Private subnet 1 ID
+        default: Private Subnet 1 ID
       PrivateSubnet2ID:
-        default: Private subnet 2 ID
+        default: Private Subnet 2 ID
       PublicSubnet1ID:
-        default: Public subnet 1 ID
+        default: Public Subnet 1 ID
       PublicSubnet2ID:
-        default: Public subnet 2 ID
+        default: Public Subnet 2 ID
       QSS3BucketName:
-        default: Quick Start S3 bucket name
+        default: Quick Start S3 Bucket Name
       QSS3KeyPrefix:
-        default: Quick Start S3 key prefix
+        default: Quick Start S3 Key Prefix
       UserEmailAddress:
-        default: User email address
+        default: User Email Address
       UserPassword:
-        default: User password
+        default: User Password
       VPCID:
         default: VPC ID
 Parameters:
   APSLicenseBucketName:
     AllowedPattern: ^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$
-    ConstraintDescription: License file bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).
+    ConstraintDescription: License File Bucket name can include numbers, Lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).
     Type: String
     Description: Name of S3 bucket where license file resides
     MinLength: 1
   APSLicenseBucketKey:
     Type: String
-    Description: Path to your Activiti license. If you don't have a license, please
+    Description: Path to your AlfrescoProcessServices license File. If you don't have a license, Please
       request one from your sales representative or contact Alfresco Support at http://support.alfresco.com.
     MinLength: 1
   APSInstanceType:
@@ -709,7 +709,7 @@ Resources:
                   sed -i 's/@@ACCESS_KEY@@/${AccessKey}/g' /etc/chef/aps-client.json
                   sed -i 's#@@SECRET_KEY@@#${SecretKey}#g' /etc/chef/aps-client.json
                   sed -i 's/@@BUCKET_NAME@@/${BucketName}/g' /etc/chef/aps-client.json
-                  curl -L ${AsposeLicense} -o /usr/share/tomcat/lib/Aspose.Total.Java.lic
+                  curl -L ${AsposeLicense} -o /usr/share/tomcat/lib/Aspose.Total.Java.lic -e https://www.alfresco.com
                 - DB_Engine:
                     !If
                     - EngineIsAurora
@@ -772,7 +772,7 @@ Resources:
       - !Ref APSSecurityGroup
       IamInstanceProfile: !Ref InstanceRoleProfile
       UserData:
-        Fn::Base64: 
+        Fn::Base64:
           !Sub |
             #!/bin/bash
             systemctl stop chef-boot.service
