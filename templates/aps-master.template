@@ -113,7 +113,7 @@ Parameters:
     MinLength: 1
   AsposeLicense:
     Type: String
-    Default: http://dl.alfresco.com/release/enterprise/APS/licenses/transform.lic
+    Default: http://download.alfresco.com/release/licenses/APS/transform.lic
     Description: URL of Your Aspose license. If you don't have a license, Please request
       one from your Sales Representative or Contact Alfresco Support at http://support.alfresco.com.
       The License Provided in the form is a Publicly Available License.

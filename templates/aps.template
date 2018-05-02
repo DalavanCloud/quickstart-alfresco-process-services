@@ -131,7 +131,7 @@ Parameters:
     MinLength: 1
   AsposeLicense:
     Type: String
-    Default: http://dl.alfresco.com/release/enterprise/APS/licenses/transform.lic
+    Default: http://download.alfresco.com/release/licenses/APS/transform.lic
     Description: URL of your Aspose license. If you don't have a license, please request
       one from your sales representative or contact Alfresco Support at http://support.alfresco.com.
     MinLength: 1
@@ -709,7 +709,7 @@ Resources:
                   sed -i 's/@@ACCESS_KEY@@/${AccessKey}/g' /etc/chef/aps-client.json
                   sed -i 's#@@SECRET_KEY@@#${SecretKey}#g' /etc/chef/aps-client.json
                   sed -i 's/@@BUCKET_NAME@@/${BucketName}/g' /etc/chef/aps-client.json
-                  curl -L ${AsposeLicense} -o /usr/share/tomcat/lib/Aspose.Total.Java.lic -e https://www.alfresco.com
+                  curl -L ${AsposeLicense} -o /usr/share/tomcat/lib/Aspose.Total.Java.lic && chown tomcat:root /usr/share/tomcat/lib/Aspose.Total.Java.lic
                 - DB_Engine:
                     !If
                     - EngineIsAurora
