@@ -49,9 +49,11 @@ Metadata:
       - QSS3KeyPrefix
     ParameterLabels:
       APSLicenseBucketName:
-        default: S3 bucket where license file resides; The bucket and files should be private.
+        default: S3 bucket where license file resides; The bucket and files should
+          be private.
       APSLicenseBucketKey:
-        default: /Path/To/AlfrescoProcessServices.lic (Path starting with a leading ‘/‘)
+        default: /Path/To/AlfrescoProcessServices.lic (Path starting with a leading
+          ‘/‘)
       APSInstanceType:
         default: APS iInstance type
       AsposeLicense:
@@ -97,14 +99,17 @@ Metadata:
 Parameters:
   APSLicenseBucketName:
     AllowedPattern: ^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$
-    ConstraintDescription: License file bucket name can include numbers, Lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).
+    ConstraintDescription: License file bucket name can include numbers, Lowercase
+      letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen
+      (-).
     Type: String
     Description: Name of S3 bucket where license file resides
     MinLength: 1
   APSLicenseBucketKey:
     Type: String
-    Description: Path to your AlfrescoProcessServices license file. If you don't have a license, please
-      request one from your sales representative or contact Alfresco Support at http://support.alfresco.com.
+    Description: Path to your AlfrescoProcessServices license file. If you don't have
+      a license, please request one from your sales representative or contact Alfresco
+      Support at http://support.alfresco.com.
     MinLength: 1
   APSInstanceType:
     Type: String
@@ -169,7 +174,8 @@ Parameters:
     NoEcho: true
     MinLength: 8
     AllowedPattern: ^[^\/"@]+$
-    ConstraintDescription: The password for the master database user can be any printable ASCII character except "/", """, or "@". Minimum 8 Characters
+    ConstraintDescription: The password for the master database user can be any printable
+      ASCII character except "/", """, or "@". Minimum 8 Characters
   DesiredNumberOfAPSNodes:
     Type: String
     MinLength: 1
@@ -243,7 +249,8 @@ Parameters:
     MinLength: 1
     NoEcho: true
     AllowedPattern: ^(?=.*[a-z])(?=.*[A-Z]).+$
-    ConstraintDescription: The Password must contain a mix of upper and lower case characters
+    ConstraintDescription: The Password must contain a mix of upper and lower case
+      characters
   VPCID:
     Type: AWS::EC2::VPC::Id
     Description: The ID of the VPC created by the VPC stack
@@ -298,35 +305,35 @@ Mappings:
       number: 5.7.11
   AWSAMIRegionMap:
     AMI:
-      ALFRESCOPS: Alfresco Process Service 1.9.0 - AWS Marketplace AMI - 1529075938 - ami-7aeba905
+      ALFRESCOPS: MarketPlace Image APS - 1507889617-6c019ea4-d489-4d40-8b2d-7ec662c348ff-ami-8961aaf3.4
     ap-northeast-1:
-      ALFRESCOPS: ami-774b9d08
+      ALFRESCOPS: ami-04873562
     ap-northeast-2:
-      ALFRESCOPS: ami-08be0b66
+      ALFRESCOPS: ami-b79532d9
     ap-south-1:
-      ALFRESCOPS: ami-7c023713
+      ALFRESCOPS: ami-83c08fec
     ap-southeast-1:
-      ALFRESCOPS: ami-f5a6a489
+      ALFRESCOPS: ami-8d2572ee
     ap-southeast-2:
-      ALFRESCOPS: ami-72489110
+      ALFRESCOPS: ami-1b4da679
     ca-central-1:
-      ALFRESCOPS: ami-42810326
+      ALFRESCOPS: ami-f69d2692
     eu-central-1:
-      ALFRESCOPS: ami-046146ef
+      ALFRESCOPS: ami-8f31b2e0
     eu-west-1:
-      ALFRESCOPS: ami-a0f4fa4a
+      ALFRESCOPS: ami-d89f2ba1
     eu-west-2:
-      ALFRESCOPS: ami-f8f1189f
+      ALFRESCOPS: ami-5bd6c93f
     sa-east-1:
-      ALFRESCOPS: ami-ff507593
+      ALFRESCOPS: ami-e26b2e8e
     us-east-1:
-      ALFRESCOPS: ami-a4174adb
+      ALFRESCOPS: ami-e0f1789a
     us-east-2:
-      ALFRESCOPS: ami-22caf347
+      ALFRESCOPS: ami-26e7c943
     us-west-1:
-      ALFRESCOPS: ami-8a28cee9
+      ALFRESCOPS: ami-851f27e5
     us-west-2:
-      ALFRESCOPS: ami-06246c7e
+      ALFRESCOPS: ami-884d9ff0
 Resources:
   NotificationTopic:
     Type: AWS::SNS::Topic
@@ -772,31 +779,30 @@ Resources:
       - !Ref APSSecurityGroup
       IamInstanceProfile: !Ref InstanceRoleProfile
       UserData:
-        Fn::Base64:
-          !Sub |
-            #!/bin/bash
-            systemctl stop chef-boot.service
-            systemctl disable chef-boot.service
-            /usr/bin/easy_install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz || sleep 10
-            /usr/bin/cfn-init --stack ${AWS::StackName} --resource APSLaunchConfig --configsets InstallAndRun --region ${AWS::Region}
-            echo "Waiting for APS to start..."
-            RESULT=0
-            ITERATION=0
-            TIMEOUT=45
-            COMMAND="curl -s -o /dev/null -I -w %{http_code} 127.0.0.1:8080/activiti-app/index.html"
-            while HTTPCODE=$($COMMAND); [[ $HTTPCODE != 200 ]];
-              do
-                if [[ $ITERATION -eq $TIMEOUT ]]; then
-                  echo "APS timeout after $TIMEOUT minutes."
-                  RESULT=1
-                  break
-                fi
-                echo "HTTPCODE=$HTTPCODE Waiting for APS to start... $((ITERATION++))/$TIMEOUT"
-                if [[ $HTTPCODE != 200 ]]; then
-                  sleep 1m
-                fi
-              done
-            /usr/bin/cfn-signal -e $RESULT --stack ${AWS::StackName} --resource APSAutoScalingGroup --region ${AWS::Region}
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          systemctl stop chef-boot.service
+          systemctl disable chef-boot.service
+          /usr/bin/easy_install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz || sleep 10
+          /usr/bin/cfn-init --stack ${AWS::StackName} --resource APSLaunchConfig --configsets InstallAndRun --region ${AWS::Region}
+          echo "Waiting for APS to start..."
+          RESULT=0
+          ITERATION=0
+          TIMEOUT=45
+          COMMAND="curl -s -o /dev/null -I -w %{http_code} 127.0.0.1:8080/activiti-app/index.html"
+          while HTTPCODE=$($COMMAND); [[ $HTTPCODE != 200 ]];
+            do
+              if [[ $ITERATION -eq $TIMEOUT ]]; then
+                echo "APS timeout after $TIMEOUT minutes."
+                RESULT=1
+                break
+              fi
+              echo "HTTPCODE=$HTTPCODE Waiting for APS to start... $((ITERATION++))/$TIMEOUT"
+              if [[ $HTTPCODE != 200 ]]; then
+                sleep 1m
+              fi
+            done
+          /usr/bin/cfn-signal -e $RESULT --stack ${AWS::StackName} --resource APSAutoScalingGroup --region ${AWS::Region}
   APSAutoScalingGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
     DependsOn:
@@ -842,7 +848,7 @@ Resources:
   UpdateUserPasswordRole:
     Type: AWS::IAM::Role
     DependsOn:
-      - APSAutoScalingGroup
+    - APSAutoScalingGroup
     Properties:
       AssumeRolePolicyDocument:
         Version: 2012-10-17
