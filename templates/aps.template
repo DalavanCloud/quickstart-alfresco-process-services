@@ -49,61 +49,61 @@ Metadata:
       - QSS3KeyPrefix
     ParameterLabels:
       APSLicenseBucketName:
-        default: S3 Bucket Where License File Resides; The Bucket and Files Should be Private.
+        default: S3 bucket where license file resides; The bucket and files should be private.
       APSLicenseBucketKey:
-        default: /Path/To/AlfrescoProcessServices.lic (Path Starting With a Leading ‘/‘)
+        default: /Path/To/AlfrescoProcessServices.lic (Path starting with a leading ‘/‘)
       APSInstanceType:
-        default: APS Instance Type
+        default: APS iInstance type
       AsposeLicense:
-        default: Aspose License Location URL
+        default: Aspose license location URL
       BastionSecurityGroupId:
         default: Bastion security group ID
       DBEngine:
-        default: DB Engine
+        default: DB engine
       DBInstanceClass:
-        default: RDS DB Instance Class
+        default: RDS DB instance class
       DBUsername:
-        default: Master User Name
+        default: Master user Name
       DBUserPassword:
-        default: Master User Password
+        default: Master user password
       DesiredNumberOfAPSNodes:
-        default: Desired Number of Nodes
+        default: Desired number of nodes
       KeyPairName:
-        default: Key Pair Name
+        default: Key pair name
       MaxNumberOfAPSNodes:
-        default: Maximum Number of Nodes
+        default: Maximum number of nodes
       MinNumberOfAPSNodes:
-        default: Minimum Number of Nodes
+        default: Minimum number of nodes
       OperatorEmail:
-        default: Notifications Email
+        default: Notifications email
       PrivateSubnet1ID:
-        default: Private Subnet 1 ID
+        default: Private subnet 1 ID
       PrivateSubnet2ID:
-        default: Private Subnet 2 ID
+        default: Private subnet 2 ID
       PublicSubnet1ID:
-        default: Public Subnet 1 ID
+        default: Public subnet 1 ID
       PublicSubnet2ID:
-        default: Public Subnet 2 ID
+        default: Public subnet 2 ID
       QSS3BucketName:
-        default: Quick Start S3 Bucket Name
+        default: Quick Start S3 bucket name
       QSS3KeyPrefix:
-        default: Quick Start S3 Key Prefix
+        default: Quick Start S3 key prefix
       UserEmailAddress:
-        default: User Email Address
+        default: User email address
       UserPassword:
-        default: User Password
+        default: User password
       VPCID:
         default: VPC ID
 Parameters:
   APSLicenseBucketName:
     AllowedPattern: ^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$
-    ConstraintDescription: License File Bucket name can include numbers, Lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).
+    ConstraintDescription: License file bucket name can include numbers, Lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).
     Type: String
     Description: Name of S3 bucket where license file resides
     MinLength: 1
   APSLicenseBucketKey:
     Type: String
-    Description: Path to your AlfrescoProcessServices license File. If you don't have a license, Please
+    Description: Path to your AlfrescoProcessServices license file. If you don't have a license, please
       request one from your sales representative or contact Alfresco Support at http://support.alfresco.com.
     MinLength: 1
   APSInstanceType:
@@ -136,8 +136,8 @@ Parameters:
       one from your sales representative or contact Alfresco Support at http://support.alfresco.com.
     MinLength: 1
   BastionSecurityGroupId:
-    ConstraintDescription: Security Group ID of the Bastion
-    Description: Security Group ID of the Bastion
+    ConstraintDescription: Security group ID of the Bastion
+    Description: Security group ID of the Bastion
     Type: AWS::EC2::SecurityGroup::Id
   DBEngine:
     Default: aurora
@@ -709,7 +709,7 @@ Resources:
                   sed -i 's/@@ACCESS_KEY@@/${AccessKey}/g' /etc/chef/aps-client.json
                   sed -i 's#@@SECRET_KEY@@#${SecretKey}#g' /etc/chef/aps-client.json
                   sed -i 's/@@BUCKET_NAME@@/${BucketName}/g' /etc/chef/aps-client.json
-                  curl -L ${AsposeLicense} -o /usr/share/tomcat/lib/Aspose.Total.Java.lic && chown tomcat:root /usr/share/tomcat/lib/Aspose.Total.Java.lic
+                  curl -L ${AsposeLicense} -o /usr/share/tomcat/lib/Aspose.Total.Java.lic && chown tomcat:tomcat /usr/share/tomcat/lib/Aspose.Total.Java.lic
                 - DB_Engine:
                     !If
                     - EngineIsAurora

@@ -50,57 +50,57 @@ Metadata:
       - UserPassword
     ParameterLabels:
       APSLicenseBucketName:
-        default: S3 Bucket Where License File Resides; The Bucket And Files Should be Private.
+        default: S3 bucket where license file resides; The bucket and files should be private.
       APSLicenseBucketKey:
-        default: /Path/To/AlfrescoProcessServices.lic (Path Starting With a Leading ‘/‘)
+        default: /Path/To/AlfrescoProcessServices.lic (Path starting with a leading ‘/‘)
       APSInstanceType:
-        default: APS Instance Type
+        default: APS instance type
       AsposeLicense:
-        default: Aspose License Location URL
+        default: Aspose license location URL
       AvailabilityZones:
-        default: Availability Zones
+        default: Availability zones
       DBEngine:
-        default: DB Engine
+        default: DB engine
       DBInstanceClass:
-        default: RDS DB Instance Class
+        default: RDS DB instance class
       DBUsername:
-        default: Master User Name
+        default: Master user name
       DBUserPassword:
-        default: Master User Password
+        default: Master user password
       DesiredNumberOfAPSNodes:
-        default: Desired Number of Nodes
+        default: Desired number of nodes
       KeyPairName:
-        default: Key Pair Name
+        default: Key pair name
       MaxNumberOfAPSNodes:
-        default: Maximum Number of Nodes
+        default: Maximum number of nodes
       MinNumberOfAPSNodes:
-        default: Minimum Number of Nodes
+        default: Minimum number of nodes
       OperatorEmail:
-        default: Notifications Email
+        default: Notifications email
       PrivateSubnet1CIDR:
-        default: Private Subnet 1 CIDR
+        default: Private subnet 1 CIDR
       PrivateSubnet2CIDR:
-        default: Private Subnet 2 CIDR
+        default: Private subnet 2 CIDR
       PublicSubnet1CIDR:
-        default: Public Subnet 1 CIDR
+        default: Public subnet 1 CIDR
       PublicSubnet2CIDR:
-        default: Public Subnet 2 CIDR
+        default: Public subnet 2 CIDR
       QSS3BucketName:
-        default: Quick Start S3 Bucket Name
+        default: Quick Start S3 bucket name
       QSS3KeyPrefix:
-        default: Quick Start S3 Key Prefix
+        default: Quick Start S3 key prefix
       RemoteAccessCIDR:
         default: Access CIDR
       UserEmailAddress:
-        default: User Email Address
+        default: User email address
       UserPassword:
-        default: User Password
+        default: User password
       VPCCIDR:
         default: VPC CIDR
 Parameters:
   APSLicenseBucketName:
    AllowedPattern: ^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$
-   ConstraintDescription: License File Bucket Name Can Include Numbers, Lowercase Letters, Uppercase Letters, and Hyphens (-). It Cannot Start or End With a Hyphen (-).
+   ConstraintDescription: License file bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).
    Type: String
    Default: "AlfrescoProcessServices-Lic-BucketName"
    Description: Name of S3 bucket where license file resides
@@ -108,20 +108,20 @@ Parameters:
   APSLicenseBucketKey:
     Type: String
     Default: /Path/To/AlfrescoProcessServices.lic
-    Description: Path to Alfresco Process Services license. If You don't have a License, Please
+    Description: Path to Alfresco Process Services license. If you don't have a license, please
       request one from your sales representative or contact Alfresco Support at http://support.alfresco.com.
     MinLength: 1
   AsposeLicense:
     Type: String
-    Default: http://download.alfresco.com/release/licenses/APS/transform.lic
-    Description: URL of Your Aspose license. If you don't have a license, Please request
-      one from your Sales Representative or Contact Alfresco Support at http://support.alfresco.com.
-      The License Provided in the form is a Publicly Available License.
+    Default: https://eu.dl.alfresco.com.s3.amazonaws.com/release/licenses/APS/transform.lic
+    Description: URL of your Aspose license. If you don't have a license, please request
+      one from your sales representative or contact alfresco support at http://support.alfresco.com.
+      The license provided in the form is a publicly available license.
     MinLength: 1
   APSInstanceType:
     Type: String
     Default: m4.large
-    Description: The Type of EC2 Instance to be Launched for APS
+    Description: The type of EC2 instance to be launched for APS
     AllowedValues:
     - t2.nano
     - t2.micro
@@ -139,14 +139,14 @@ Parameters:
     - m4.2xlarge
     - m4.4xlarge
     - m4.10xlarge
-    ConstraintDescription: Must Contain a Valid Instance Type
+    ConstraintDescription: Must contain a valid instance type
   AvailabilityZones:
-    Description: List of Availability Zones to use for the Subnets in the VPC. Please
-      Select a Minimum of two
+    Description: List of availability zones to use for the subnets in the VPC. Please
+      select a minimum of two
     Type: List<AWS::EC2::AvailabilityZone::Name>
   DBEngine:
     Default: aurora
-    Description: The Engine Type for the RDS Instances
+    Description: The engine type for the RDS instances
     Type: String
     AllowedValues:
     - mysql
@@ -154,7 +154,7 @@ Parameters:
     - aurora
   DBInstanceClass:
     Default: db.r4.large
-    Description: The RDS Instance Class for the DB Instances
+    Description: The RDS instance class for the DB instances
     Type: String
     AllowedValues:
     - db.r4.xlarge
@@ -162,90 +162,90 @@ Parameters:
     - db.r4.2xlarge
     - db.r4.4xlarge
     - db.r4.8xlarge
-    ConstraintDescription: Must Contain Valid RDS DB Instance Class
+    ConstraintDescription: Must contain valid RDS DB instance class
   DBUsername:
     Default: activiti
     Description: The master username for the RDS instances
     Type: String
     MinLength: 1
   DBUserPassword:
-    Description: The Master Password for the RDS Instances
+    Description: The master password for the RDS instances
     Type: String
     MinLength: 8
     AllowedPattern: ^[^\/"@]+$
-    ConstraintDescription: The Password for the Master Database User can be any Printable ASCII Character Except "/", """, or "@". Minimum 8 Characters
+    ConstraintDescription: The password for the master database user can be any printable ASCII character except "/", """, or "@". Minimum 8 Characters
     NoEcho: true
   DesiredNumberOfAPSNodes:
     Type: String
     MinLength: 1
-    Description: The Desired Number of APS Instance to Run
+    Description: The desired number of APS instance to run
     Default: 2
   KeyPairName:
-    Description: The Name of an Existing Public/Private Key Pair, Which allows you
-      to Securely Connect to your Instance after it Launches
+    Description: The name of an existing public/private key pair, which allows you
+      to securely connect to your instance after it launches
     Type: AWS::EC2::KeyPair::KeyName
   MaxNumberOfAPSNodes:
     Type: String
     MinLength: 1
-    Description: The Maximum Number of APS Instances to Run
+    Description: The maximum number of APS instances to run
     Default: 10
   MinNumberOfAPSNodes:
     Type: String
     MinLength: 1
-    Description: The Minimum Number of APS Instances to Run
+    Description: The minimum number of APS instances to run
     Default: 2
   OperatorEmail:
     AllowedPattern: ([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)
     ConstraintDescription: Must be a valid email address.
-    Description: Email address that Notifications of any Scaling Operations will be
+    Description: Email address that notifications of any scaling operations will be
       sent to
     Type: String
   PrivateSubnet1CIDR:
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$
-    ConstraintDescription: CIDR block Parameter must be in the form x.x.x.x/16-28
+    ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28
     Default: 10.0.0.0/19
-    Description: CIDR Block for Private Subnet 1 Located in Availability Zone 1
+    Description: CIDR block for private subnet 1 located in availability zone 1
     Type: String
     MinLength: 10
   PrivateSubnet2CIDR:
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$
-    ConstraintDescription: CIDR block Parameter must be in the form x.x.x.x/16-28
+    ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28
     Default: 10.0.32.0/19
-    Description: CIDR Block for Private Subnet 2 Located in Availability Zone 2
+    Description: CIDR block for private subnet 2 located in availability zone 2
     Type: String
     MinLength: 10
   PublicSubnet1CIDR:
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$
-    ConstraintDescription: CIDR block Parameter must be in the form x.x.x.x/16-28
+    ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28
     Default: 10.0.128.0/20
-    Description: CIDR Block for the Public (DMZ) Subnet 1 Located in Availability
+    Description: CIDR block for the public (DMZ) subnet 1 located in availability
       Zone 1
     Type: String
     MinLength: 10
   PublicSubnet2CIDR:
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$
-    ConstraintDescription: CIDR block Parameter must be in the form x.x.x.x/16-28
+    ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28
     Default: 10.0.144.0/20
-    Description: CIDR Block for the Public (DMZ) Subnet 2 Located in Availability
+    Description: CIDR block for the public (DMZ) subnet 2 located in availability
       Zone 2
     Type: String
     MinLength: 10
   RemoteAccessCIDR:
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$
     ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/x
-    Description: The CIDR IP Range that is Permitted to Access the APS Software. It
-      is Recommended that you Set this Value to a Trusted IP Range.
+    Description: The CIDR IP range that is permitted to access the APS software. It
+      is recommended that you set this value to a trusted IP range.
     Type: String
     MinLength: 8
   QSS3BucketName:
     AllowedPattern: ^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$
-    ConstraintDescription: Quick Start Bucket name can include Numbers, Lowercase
-      Letters, Uppercase Letters, and Hyphens (-). It cannot start or end with a Hyphen
+    ConstraintDescription: Quick Start Bucket name can include numbers, lowercase
+      letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen
       (-).
     Default: aws-quickstart
-    Description: S3 bucket name for the Quick Start assets. This String can Include
-      Numbers, Lowercase Letters, Uppercase Letters, and Hyphens (-). It Cannot Start
-      or end with a Hyphen (-).
+    Description: S3 bucket name for the Quick Start assets. This string can include
+      numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start
+      or end with a hyphen (-).
     Type: String
     MinLength: 1
   QSS3KeyPrefix:
@@ -255,32 +255,32 @@ Parameters:
     Default: quickstart-alfresco-process-services/
     Description: S3 key prefix for the Quick Start assets. Quick Start key prefix
       can include numbers, lowercase letters, uppercase letters, hyphens (-), and
-    ConstraintDescription: Quick Start key Prefix can include Numbers, Lowercase Letters,
-      Uppercase Letters, Hyphens (-), and forward slash (/).
+    ConstraintDescription: Quick Start key Prefix can include Numbers, lowercase letters,
+      uppercase letters, hyphens (-), and forward slash (/).
     Default: quickstart-alfresco-process-services/
-    Description: S3 key prefix for the Quick Start assets. Quick Start Key Prefix
-      can Include Numbers, Lowercase Letters, Uppercase Letters, Hyphens (-), and
+    Description: S3 key prefix for the Quick Start assets. Quick Start Key prefix
+      can include numbers, lowercase letters, uppercase letters, hyphens (-), and
       forward slash (/).
     Type: String
     MinLength: 1
   UserEmailAddress:
     AllowedPattern: ([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)
     ConstraintDescription: Must be a valid email address.
-    Description: Email Address that is used to Login to APS
+    Description: Email address that is used to login to APS
     Type: String
     MinLength: 1
   UserPassword:
     AllowedPattern: ^(?=.*[a-z])(?=.*[A-Z]).+$
-    ConstraintDescription: The Password must contain a mix of upper and lower case characters
+    ConstraintDescription: The password must contain a mix of upper and lower case characters
     Description: Password to use for logging in to the APS app
     Type: String
     MinLength: 1
     NoEcho: true
   VPCCIDR:
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$
-    ConstraintDescription: CIDR Block Parameter must be in the form x.x.x.x/16-28
+    ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28
     Default: 10.0.0.0/16
-    Description: CIDR Block for the VPC
+    Description: CIDR block for the VPC
     Type: String
     MinLength: 10
 Conditions:
