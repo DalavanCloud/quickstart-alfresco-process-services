@@ -55,7 +55,7 @@ Metadata:
         default: /Path/To/AlfrescoProcessServices.lic (Path starting with a leading
           ‘/‘)
       APSInstanceType:
-        default: APS iInstance type
+        default: APS instance type
       AsposeLicense:
         default: Aspose license location URL
       BastionSecurityGroupId:
