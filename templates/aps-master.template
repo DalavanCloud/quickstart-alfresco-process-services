@@ -32,11 +32,6 @@ Metadata:
       - DBUserPassword
       - DBInstanceClass
     - Label:
-        default: AWS Quick Start Configuration
-      Parameters:
-      - QSS3BucketName
-      - QSS3KeyPrefix
-    - Label:
         default: Alfresco Process Services Configuration
       Parameters:
       - APSLicenseBucketName
@@ -48,6 +43,11 @@ Metadata:
       - OperatorEmail
       - UserEmailAddress
       - UserPassword
+    - Label:
+        default: AWS Quick Start Configuration
+      Parameters:
+      - QSS3BucketName
+      - QSS3KeyPrefix
     ParameterLabels:
       APSLicenseBucketName:
         default: S3 bucket where license file resides; The bucket and files should be private.

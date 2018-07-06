@@ -24,6 +24,13 @@ Metadata:
       - BastionSecurityGroupId
       - KeyPairName
     - Label:
+        default: Amazon RDS Configuration
+      Parameters:
+      - DBEngine
+      - DBUsername
+      - DBUserPassword
+      - DBInstanceClass
+    - Label:
         default: Alfresco Process Services Configuration
       Parameters:
       - APSLicenseBucketName
@@ -35,13 +42,6 @@ Metadata:
       - OperatorEmail
       - UserEmailAddress
       - UserPassword
-    - Label:
-        default: Amazon RDS Configuration
-      Parameters:
-      - DBEngine
-      - DBUsername
-      - DBUserPassword
-      - DBInstanceClass
     - Label:
         default: AWS Quick Start Configuration
       Parameters:
