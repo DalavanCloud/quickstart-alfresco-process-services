@@ -24,6 +24,13 @@ Metadata:
       - BastionSecurityGroupId
       - KeyPairName
     - Label:
+        default: Amazon RDS Configuration
+      Parameters:
+      - DBEngine
+      - DBUsername
+      - DBUserPassword
+      - DBInstanceClass
+    - Label:
         default: Alfresco Process Services Configuration
       Parameters:
       - APSLicenseBucketName
@@ -35,13 +42,6 @@ Metadata:
       - OperatorEmail
       - UserEmailAddress
       - UserPassword
-    - Label:
-        default: Amazon RDS Configuration
-      Parameters:
-      - DBEngine
-      - DBUsername
-      - DBUserPassword
-      - DBInstanceClass
     - Label:
         default: AWS Quick Start Configuration
       Parameters:
@@ -716,7 +716,7 @@ Resources:
                   sed -i 's/@@ACCESS_KEY@@/${AccessKey}/g' /etc/chef/aps-client.json
                   sed -i 's#@@SECRET_KEY@@#${SecretKey}#g' /etc/chef/aps-client.json
                   sed -i 's/@@BUCKET_NAME@@/${BucketName}/g' /etc/chef/aps-client.json
-                  curl -L ${AsposeLicense} -o /usr/share/tomcat/lib/Aspose.Total.Java.lic && chown tomcat:tomcat /usr/share/tomcat/lib/Aspose.Total.Java.lic
+                  curl -L ${AsposeLicense} -o /usr/share/tomcat/lib/Aspose.Total.Java.lic && chown tomcat:root /usr/share/tomcat/lib/Aspose.Total.Java.lic
                 - DB_Engine:
                     !If
                     - EngineIsAurora
