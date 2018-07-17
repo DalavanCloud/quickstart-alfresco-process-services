@@ -305,35 +305,35 @@ Mappings:
       number: 5.7.11
   AWSAMIRegionMap:
     AMI:
-      ALFRESCOPS: Alfresco Process Service 1.9.0 - AWS Marketplace AMI - 1529075938 - ami-7aeba905
+      ALFRESCOPS: MarketPlace Image APS - 1507889617-6c019ea4-d489-4d40-8b2d-7ec662c348ff-ami-8961aaf3.4
     ap-northeast-1:
-      ALFRESCOPS: ami-774b9d08
+      ALFRESCOPS: ami-04873562
     ap-northeast-2:
-      ALFRESCOPS: ami-08be0b66
+      ALFRESCOPS: ami-b79532d9
     ap-south-1:
-      ALFRESCOPS: ami-7c023713
+      ALFRESCOPS: ami-83c08fec
     ap-southeast-1:
-      ALFRESCOPS: ami-f5a6a489
+      ALFRESCOPS: ami-8d2572ee
     ap-southeast-2:
-      ALFRESCOPS: ami-72489110
+      ALFRESCOPS: ami-1b4da679
     ca-central-1:
-      ALFRESCOPS: ami-42810326
+      ALFRESCOPS: ami-f69d2692
     eu-central-1:
-      ALFRESCOPS: ami-046146ef
+      ALFRESCOPS: ami-8f31b2e0
     eu-west-1:
-      ALFRESCOPS: ami-a0f4fa4a
+      ALFRESCOPS: ami-d89f2ba1
     eu-west-2:
-      ALFRESCOPS: ami-f8f1189f
+      ALFRESCOPS: ami-5bd6c93f
     sa-east-1:
-      ALFRESCOPS: ami-ff507593
+      ALFRESCOPS: ami-e26b2e8e
     us-east-1:
-      ALFRESCOPS: ami-a4174adb
+      ALFRESCOPS: ami-e0f1789a
     us-east-2:
-      ALFRESCOPS: ami-22caf347
+      ALFRESCOPS: ami-26e7c943
     us-west-1:
-      ALFRESCOPS: ami-8a28cee9
+      ALFRESCOPS: ami-851f27e5
     us-west-2:
-      ALFRESCOPS: ami-06246c7e
+      ALFRESCOPS: ami-884d9ff0
 Resources:
   NotificationTopic:
     Type: AWS::SNS::Topic
