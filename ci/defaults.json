@@ -17,7 +17,7 @@
     },
     {
         "ParameterKey": "AvailabilityZones",
-        "ParameterValue": "$[alfred_getaz_2]"
+        "ParameterValue": "$[taskcat_genaz_2]"
     },
     {
         "ParameterKey": "DBEngine",
@@ -33,7 +33,7 @@
     },
     {
         "ParameterKey": "DBUserPassword",
-        "ParameterValue": "$[alfred_genpass_16]"
+        "ParameterValue": "$[taskcat_genpass_16]"
     },
     {
         "ParameterKey": "KeyPairName",
@@ -69,7 +69,7 @@
     },
     {
         "ParameterKey": "UserPassword",
-        "ParameterValue": "$[alfred_genpass_16]"
+        "ParameterValue": "$[taskcat_genpass_16]"
     },
     {
         "ParameterKey": "VPCCIDR",
